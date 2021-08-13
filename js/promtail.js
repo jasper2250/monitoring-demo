@@ -10,7 +10,7 @@ let input=yamljs.parse(fs.readFileSync('./monitoring.yaml').toString());
 let promtail=yamljs.parse(fs.readFileSync('./js/promtail-template.yaml').toString());
 
 let clientId = '807c401e-aa01-43cc-a0a6-ae6bca922285';
-let secret;
+let secret = fs.readFileSync('/pwd/key');
 let domain = 'a19f121d-81e1-4858-a9d8-736e267fd4c7';
 // let subId = '309cb9ec-c77d-4840-bd35-e41fcf3307ff';
 
