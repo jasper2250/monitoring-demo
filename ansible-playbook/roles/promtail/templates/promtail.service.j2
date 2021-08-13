@@ -1,0 +1,22 @@
+[Unit]
+Description="promtail"
+Documentation=promtail
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/opt/loki/promtail/promtail-linux-amd64 --config.file=/opt/loki/promtail/promtail-local-config-linux.yaml
+
+Restart=on-failure
+RestartSecs=5s
+SuccessExitStatus=0
+LimitNOFILE=65536
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=m_query
+
+
+[Install]
+WantedBy=multi-user.target
+
+

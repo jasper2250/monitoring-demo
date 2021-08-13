@@ -1,0 +1,84 @@
+namespace: namespace1
+owner:
+  group: JP-Next-GEN-POS-StoreOE
+notify:
+  slack:
+    channelName: seiyu-fstgn-storeoe-ops
+cloudConfig:
+  azure:
+    tenantId: yyyyyyy-yyyyy-yyyyy-yyyyyy
+    resourceGroup: ubuntu
+targets:
+  - name: vmset1
+    os: "UbuntuServer 20.04-LTS"
+    type: azure-vm-scale-set
+    scaleSetName: [vmss]
+    metrics:
+      - name: node
+        port: 9100 
+        path: /metrics
+        timeout: 1s
+        interval: 15s
+      - name: app
+        port: 8080
+        path: /app1/actuator/prometheus 
+        timeout: 1s
+        interval: 5s
+    logs:
+      - name: notebook
+        path: /tmp/log/notebook/*.log
+      - name: system
+        path: /test
+  - name: vm2-instance
+    type: azure-vm-instance
+    instanceName: [ubuntu]
+    metrics:
+      - name: node
+    logs:
+      - name: system
+        path: /var/log/*.log
+  - name: vm3-node
+    type: static-host
+    host:
+      - 172.16.0.0
+    metrics:
+      - name: node
+    logs:
+      - name: system
+        path: /var/log/*.log
+        label:
+        - name: job_name
+          value: nginx_logs_ubuntu
+      - name: app
+        path: /var/log/*.log
+stages:
+  - name: dev
+    refs: [main]
+    cloudConfig:
+      azure:
+        subscriptionId: 309cb9ec-c77d-4840-bd35-e41fcf3307ff
+    targets:
+      - name: vmset1
+        metrics:
+        - name: app
+          interval: 30s
+        logs:
+        - name: notebook
+          path: /var/dev/log
+  - name: stg
+    refs: [main]
+    cloudConfig:
+      azure:
+        subscriptionId: 309cb9ec-c77d-4840-bd35-e41fcf3307ff
+    targets:
+      - name: vm2-instance
+        metrics:
+          - name: node
+  - name: prod
+    refs: [main]
+    approvers:
+      groups:
+        - "JP-Next-GEN-POS-StoreOE"
+    cloudConfig:
+      azure:
+        subscriptionId: 309cb9ec-c77d-4840-bd35-e41fcf3307ff

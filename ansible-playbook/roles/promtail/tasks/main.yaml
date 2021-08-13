@@ -1,0 +1,21 @@
+---
+- name: create loki dir
+  file: dest={{ promtail_work_dir }} state=directory
+
+- name: "copy promtail"
+  copy:
+    src: promtail-linux-amd64
+    dest: "{{ promtail_work_dir }}"
+    mode: +x
+
+- name: "copy promtail config"
+  copy:
+    src: config/{{ ansible_ssh_host }}/promtail-local-config-linux.yaml
+    dest: "{{ promtail_work_dir }}"
+
+- name: service file
+  template: src=promtail.service.j2 dest=/lib/systemd/system/promtail.service
+    
+- name: start promtail
+  systemd: name=promtail state=restarted enabled=yes daemon_reload=yes
+

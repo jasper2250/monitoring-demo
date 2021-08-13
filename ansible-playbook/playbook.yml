@@ -1,0 +1,8 @@
+---
+- hosts: nodes
+  remote_user: azureuser
+  become: true
+  vars_files:
+    - vars/all.yaml
+  roles:
+    - role: promtail

@@ -1,0 +1,57 @@
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+positions:
+  filename: /opt/loki/positions.yaml
+clients:
+  - url: http://loki-namespace1.342586163.ga/loki/api/v1/push
+scrape_configs:
+  - job_name: nginx_logs_ubuntu
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: nginx_logs_ubuntu
+          __path__: /var/log/nginx/*log
+  - job_name: syslog_ubuntu
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: syslog_ubuntu
+          __path__: /var/log/*log
+  - job_name: notebook
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: vmset1notebook
+          __path__: /tmp/log/notebook/*.log
+  - job_name: system
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: vmset1system
+          __path__: /var/log/*log
+  - job_name: system
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: vmset2system
+          __path__: /var/log/*.log
+  - job_name: system
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: vm3-nodesystem
+          __path__: /var/log/*.log
+  - job_name: app
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: vm3-nodeapp
+          __path__: /var/log/*.log

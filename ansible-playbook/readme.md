@@ -1,0 +1,1 @@
+ansible-playbook -i inventories/target playbook.yml
