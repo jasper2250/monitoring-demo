@@ -10,7 +10,7 @@
 
 - name: "copy promtail config"
   copy:
-    src: config/{{ ansible_ssh_host }}/promtail-local-config-linux.yaml
+    src: config/{{ ansible_ssh_host }}/promtail-config.yaml
     dest: "{{ promtail_work_dir }}"
 
 - name: service file
