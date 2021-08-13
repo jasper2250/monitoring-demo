@@ -149,7 +149,7 @@ let writeConfigFile = function(targets, promtail, resourceGroup, subscriptionId,
                     vmssIps.forEach(vmssIp => {
                         shell.mkdir('-p', './ansible-playbook/roles/promtail/files/config/'.concat(vmssIp));
                         let config=jsyaml.dump(promtail);
-                        fs.writeFileSync('./ansible-playbook/roles/promtail/files/config/'.concat(vmssIp).concat('/promtail-config.yml'),config);
+                        fs.writeFileSync('./ansible-playbook/roles/promtail/files/config/'.concat(vmssIp).concat('/promtail-config.yaml'),config);
                         console.log('make promtail config success. stage:%s, target:%s, vmss:%s, ip:%s', stageName, target.name, vmssName, vmssIp);
                     })
                 });
@@ -160,7 +160,7 @@ let writeConfigFile = function(targets, promtail, resourceGroup, subscriptionId,
                 getVmIp(vmName, resourceGroup, subscriptionId, credentials).then(result => {
                     shell.mkdir('-p', './ansible-playbook/roles/promtail/files/config/'.concat(result));
                     let config=jsyaml.dump(promtail);
-                    fs.writeFileSync('./ansible-playbook/roles/promtail/files/config/'.concat(result).concat('/promtail-config.yml'),config);
+                    fs.writeFileSync('./ansible-playbook/roles/promtail/files/config/'.concat(result).concat('/promtail-config.yaml'),config);
                     console.log('make promtail config success. stage:%s, target:%s, vm:%s, ip:%s', stageName, target.name, vmName, result)
                 })
             })
@@ -169,7 +169,7 @@ let writeConfigFile = function(targets, promtail, resourceGroup, subscriptionId,
             hosts.forEach(host => {
                 shell.mkdir('-p', './ansible-playbook/roles/promtail/files/config/'.concat(host));
                 let config=jsyaml.dump(promtail);
-                fs.writeFileSync('./ansible-playbook/roles/promtail/files/config/'.concat(host).concat('/promtail-config.yml'),config);
+                fs.writeFileSync('./ansible-playbook/roles/promtail/files/config/'.concat(host).concat('/promtail-config.yaml'),config);
                 console.log('make promtail config success. stage:%s, target:%s, host:%s', stageName, target.name, host)
             })
         }

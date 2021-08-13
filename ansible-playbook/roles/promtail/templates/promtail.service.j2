@@ -5,7 +5,7 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=/opt/loki/promtail/promtail-linux-amd64 --config.file=/opt/loki/promtail/promtail-local-config-linux.yaml
+ExecStart=/opt/loki/promtail/promtail-linux-amd64 --config.file=/opt/loki/promtail/promtail-config.yaml
 
 Restart=on-failure
 RestartSecs=5s
