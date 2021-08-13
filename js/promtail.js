@@ -7,7 +7,7 @@ const ComputeManagementClient = require('azure-arm-compute');
 const NetworkManagementClient = require('azure-arm-network');
 
 let input=yamljs.parse(fs.readFileSync('./monitoring.yaml').toString());
-let promtail=yamljs.parse(fs.readFileSync('./promtail-template.yaml').toString());
+let promtail=yamljs.parse(fs.readFileSync('./js/promtail-template.yaml').toString());
 
 let clientId = '807c401e-aa01-43cc-a0a6-ae6bca922285';
 let secret = fs.readFileSync('/pwd/key', 'utf-8');
