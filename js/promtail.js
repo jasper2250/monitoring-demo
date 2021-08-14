@@ -11,10 +11,7 @@ let promtail=yamljs.parse(fs.readFileSync('./js/promtail-template.yaml').toStrin
 
 let clientId = '807c401e-aa01-43cc-a0a6-ae6bca922285';
 let secret = fs.readFileSync('/pwd/key', 'utf-8');
-console.log(secret);
 let domain = 'a19f121d-81e1-4858-a9d8-736e267fd4c7';
-// let subId = '309cb9ec-c77d-4840-bd35-e41fcf3307ff';
-
 
 msRestAzure.loginWithServicePrincipalSecret(clientId, secret, domain, function (err, credentials, subscriptions) {
     if (err) {
@@ -112,6 +109,18 @@ let getVmssIps = async (name, rg, subsId, credentials) => {
 }
 
 /**
+ * write promtail config file
+ * @param {*} promtail 
+ * @param {*} ip 
+ */
+let writeFile = (promtail, ip) => {
+    shell.mkdir('-p', './ansible-playbook/roles/promtail/files/config/'.concat(ip));
+    let config=jsyaml.dump(promtail);
+    fs.writeFileSync('./ansible-playbook/roles/promtail/files/config/'.concat(ip).concat('/promtail-config.yaml'),config);
+    fs.appendFileSync('./ansible-playbook/inventories/target', '\n'.concat(ip).concat(' ansible_host=').concat(ip));
+}
+
+/**
  * make promtail config file
  * @param {*} targets 
  * @param {*} promtail 
@@ -120,7 +129,7 @@ let getVmssIps = async (name, rg, subsId, credentials) => {
  * @param {*} stageName 
  * @param {*} credentials 
  */
-let writeConfigFile = function(targets, promtail, resourceGroup, subscriptionId, stageName, credentials){
+let makeConfigFile = function(targets, promtail, resourceGroup, subscriptionId, stageName, credentials){
     targets.forEach(target => {
         let targetName = target.name;
         promtail.scrape_configs = [];
@@ -147,9 +156,7 @@ let writeConfigFile = function(targets, promtail, resourceGroup, subscriptionId,
             vmssNames.forEach(vmssName => {
                 getVmssIps(vmssName, resourceGroup, subscriptionId, credentials).then(vmssIps => {
                     vmssIps.forEach(vmssIp => {
-                        shell.mkdir('-p', './ansible-playbook/roles/promtail/files/config/'.concat(vmssIp));
-                        let config=jsyaml.dump(promtail);
-                        fs.writeFileSync('./ansible-playbook/roles/promtail/files/config/'.concat(vmssIp).concat('/promtail-config.yaml'),config);
+                        writeFile(promtail, vmssIp);
                         console.log('make promtail config success. stage:%s, target:%s, vmss:%s, ip:%s', stageName, target.name, vmssName, vmssIp);
                     })
                 });
@@ -158,18 +165,14 @@ let writeConfigFile = function(targets, promtail, resourceGroup, subscriptionId,
             let vmNames = target.instanceName;
             vmNames.forEach(vmName => {
                 getVmIp(vmName, resourceGroup, subscriptionId, credentials).then(result => {
-                    shell.mkdir('-p', './ansible-playbook/roles/promtail/files/config/'.concat(result));
-                    let config=jsyaml.dump(promtail);
-                    fs.writeFileSync('./ansible-playbook/roles/promtail/files/config/'.concat(result).concat('/promtail-config.yaml'),config);
-                    console.log('make promtail config success. stage:%s, target:%s, vm:%s, ip:%s', stageName, target.name, vmName, result)
+                    writeFile(promtail, result);
+                   console.log('make promtail config success. stage:%s, target:%s, vm:%s, ip:%s', stageName, target.name, vmName, result)
                 })
             })
         }else if(target.type === 'static-host'){
             let hosts = target.host;
             hosts.forEach(host => {
-                shell.mkdir('-p', './ansible-playbook/roles/promtail/files/config/'.concat(host));
-                let config=jsyaml.dump(promtail);
-                fs.writeFileSync('./ansible-playbook/roles/promtail/files/config/'.concat(host).concat('/promtail-config.yaml'),config);
+                writeFile(promtail, host);
                 console.log('make promtail config success. stage:%s, target:%s, host:%s', stageName, target.name, host)
             })
         }
@@ -205,9 +208,9 @@ let obtainYaml = function(credentials){
         let targets = stage.targets;
         if(targets){
             let mergeTargets = mergeStageToGlb(input.targets, targets);
-            writeConfigFile(mergeTargets, promtail, resourceGroup, subscriptionId, stageName, credentials);
+            makeConfigFile(mergeTargets, promtail, resourceGroup, subscriptionId, stageName, credentials);
         }else{
-            writeConfigFile(input.targets, promtail, resourceGroup, subscriptionId, stageName, credentials);
+            makeConfigFile(input.targets, promtail, resourceGroup, subscriptionId, stageName, credentials);
         }
     });
 }
