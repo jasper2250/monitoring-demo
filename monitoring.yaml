@@ -34,7 +34,7 @@ stages:
     refs: [main]
     cloudConfig:
       azure:
-        subscriptionId: 309cb9ec-c77d-4840-bd35-e41fcf3307ff
+        subscriptionId: 6c7300fe-0701-437d-b954-6dcbcb876f5f
     targets:
       - name: vmset1
         metrics:
