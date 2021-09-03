@@ -11,11 +11,11 @@
             "type": "String"
         },
         "publicIPAddresses_f5326189_d4b1_4d5c_bc9f_0e5e89edec45_externalid": {
-            "defaultValue": "/subscriptions/6c7300fe-0701-437d-b954-6dcbcb876f5f/resourceGroups/MC_demo_demo-aks2_centralus/providers/Microsoft.Network/publicIPAddresses/f5326189-d4b1-4d5c-bc9f-0e5e89edec45",
+            "defaultValue": "/subscriptions/6c7300fe-0701-437d-b954-6dcbcb876f5f/resourcegroups/demo/providers/Microsoft.Network/publicIpAddresses/demo-aks2-ip",
             "type": "String"
         },
         "userAssignedIdentities_demo_aks2_agentpool_externalid": {
-            "defaultValue": "/subscriptions/6c7300fe-0701-437d-b954-6dcbcb876f5f/resourceGroups/MC_demo_demo-aks2_centralus/providers/Microsoft.ManagedIdentity/userAssignedIdentities/demo-aks2-agentpool",
+            "defaultValue": "/subscriptions/6c7300fe-0701-437d-b954-6dcbcb876f5f/resourceGroups/demo/providers/Microsoft.ManagedIdentity/userAssignedIdentities/demo-uami",
             "type": "String"
         }
     },
@@ -103,8 +103,8 @@
                 "identityProfile": {
                     "kubeletidentity": {
                         "resourceId": "[parameters('userAssignedIdentities_demo_aks2_agentpool_externalid')]",
-                        "clientId": "08f5aa12-c3c1-420c-a474-759bc8f9cb37",
-                        "objectId": "f4589295-317e-4e04-a601-1642f26454a7"
+                        "clientId": "5f472093-86b0-4eda-a34b-ff90b4599908",
+                        "objectId": "643e0c81-65f2-428b-aaa8-b40d4cacb558"
                     }
                 }
             }
