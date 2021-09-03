@@ -31,7 +31,7 @@
                 "tier": "Free"
             },
             "identity": {
-                "principalId": "4887255d-de90-41b5-af5d-8d699b33a875",
+                "principalId": null,
                 "tenantId": "a19f121d-81e1-4858-a9d8-736e267fd4c7",
                 "type": "SystemAssigned"
             },
