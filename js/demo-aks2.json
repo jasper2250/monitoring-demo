@@ -32,7 +32,7 @@
             },
             "identity": {
                 "principalId": null,
-                "tenantId": "a19f121d-81e1-4858-a9d8-736e267fd4c7",
+                "tenantId": null,
                 "type": "SystemAssigned"
             },
             "properties": {
