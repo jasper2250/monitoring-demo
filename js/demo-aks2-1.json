@@ -76,6 +76,10 @@
       "publicIPAddresses_f5326189_d4b1_4d5c_bc9f_0e5e89edec45_externalid": {
         "defaultValue": "/subscriptions/6c7300fe-0701-437d-b954-6dcbcb876f5f/resourcegroups/demo/providers/Microsoft.Network/publicIpAddresses/demo-aks2-ip",
         "type": "string"
+      },
+      "virtualNetworks_demo_vnet_externalid": {
+        "defaultValue": "/subscriptions/6c7300fe-0701-437d-b954-6dcbcb876f5f/resourceGroups/demo/providers/Microsoft.Network/virtualNetworks/demo-vnet",
+        "type": "string"
       }
     },
     "functions": [],
@@ -97,7 +101,8 @@
               "count": "[parameters('agentCount')]",
               "vmSize": "[parameters('agentVMSize')]",
               "osType": "Linux",
-              "mode": "System"
+              "mode": "System",
+              "vnetSubnetID": "[concat(parameters('virtualNetworks_demo_vnet_externalid'), '/subnets/default')]"
             }
           ],
           "linuxProfile": {
