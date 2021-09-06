@@ -72,7 +72,11 @@
       "userAssignedIdentities_demo_aks2_agentpool_externalid": {
         "type": "string",
         "defaultValue": "/subscriptions/6c7300fe-0701-437d-b954-6dcbcb876f5f/resourceGroups/demo/providers/Microsoft.ManagedIdentity/userAssignedIdentities/demo-uami"
-    }
+      },
+      "publicIPAddresses_f5326189_d4b1_4d5c_bc9f_0e5e89edec45_externalid": {
+        "defaultValue": "/subscriptions/6c7300fe-0701-437d-b954-6dcbcb876f5f/resourcegroups/demo/providers/Microsoft.Network/publicIpAddresses/demo-aks2-ip",
+        "type": "string"
+      }
     },
     "functions": [],
     "resources": [
@@ -112,6 +116,24 @@
                 "clientId": "5f472093-86b0-4eda-a34b-ff90b4599908",
                 "objectId": "643e0c81-65f2-428b-aaa8-b40d4cacb558"
             }
+          },
+          "networkProfile": {
+            "networkPlugin": "azure",
+            "loadBalancerSku": "standard",
+            "loadBalancerProfile": {
+                "managedOutboundIPs": {
+                    "count": 1
+                },
+                "effectiveOutboundIPs": [
+                    {
+                        "id": "[parameters('publicIPAddresses_f5326189_d4b1_4d5c_bc9f_0e5e89edec45_externalid')]"
+                    }
+                ]
+            },
+            "serviceCidr": "10.0.0.0/16",
+            "dnsServiceIP": "10.0.0.10",
+            "dockerBridgeCidr": "172.18.0.1/16",
+            "outboundType": "loadBalancer"
           }
         }
       }
