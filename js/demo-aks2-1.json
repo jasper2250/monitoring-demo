@@ -68,7 +68,11 @@
         "metadata": {
           "description": "Configure all linux machines with the SSH RSA public key string. Your key should include three parts, for example 'ssh-rsa AAAAB...snip...UcyupgH azureuser@linuxvm'"
         }
-      }
+      },
+      "userAssignedIdentities_demo_aks2_agentpool_externalid": {
+        "type": "string",
+        "defaultValue": "/subscriptions/6c7300fe-0701-437d-b954-6dcbcb876f5f/resourceGroups/demo/providers/Microsoft.ManagedIdentity/userAssignedIdentities/demo-uami"
+    }
     },
     "functions": [],
     "resources": [
@@ -100,6 +104,13 @@
                   "keyData": "[parameters('sshRSAPublicKey')]"
                 }
               ]
+            }
+          },
+          "identityProfile": {
+            "kubeletidentity": {
+                "resourceId": "[parameters('userAssignedIdentities_demo_aks2_agentpool_externalid')]",
+                "clientId": "5f472093-86b0-4eda-a34b-ff90b4599908",
+                "objectId": "643e0c81-65f2-428b-aaa8-b40d4cacb558"
             }
           }
         }
