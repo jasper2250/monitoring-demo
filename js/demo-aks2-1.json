@@ -25,6 +25,7 @@
       },
       "dnsPrefix": {
         "type": "string",
+        "defaultValue": "demo-aks",
         "metadata": {
           "description": "Optional DNS prefix to use with hosted Kubernetes API server FQDN."
         }
@@ -56,12 +57,14 @@
       },
       "linuxAdminUsername": {
         "type": "string",
+        "defaultValue": "azureuser",
         "metadata": {
           "description": "User name for the Linux Virtual Machines."
         }
       },
       "sshRSAPublicKey": {
         "type": "string",
+        "defaultValue": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCzXm8yxTq4ACDL5DUEUCBtRPRcQRNT7ZDWFhcKCOPr5FMwvhrTrWRaKfK4EYUcAmJKh5iXtbVq/wIqY6whtGQuvhhk7g5NxUeY3QjVNAdiYQvYR4c0D4f4ox4sAD6ekgmf5V59GcBQRW46g8UUABMb6pKBaivhnCI4zzaDzgnmp/pUoyditFrpCSXY3314JnhcFqZ1WgCu0SVhm+S4uNZlrvGMGeffPerkosg3v0/L+TYbplVr3lVv8bgOwbxonLodAmoYvoWwrve9apM9T3QhdLcZPYo4Kg6USEGtwVeJdQ/jhaipjJs0gs6vK2ViTpKbf5TRxnVoBm/mH6e8kNMbWb5MJmpdnahYai3EWg6+Q3deRaSPmyLzHujejpgNZO/03IgVEAxnPTWriIM/kD/aidbb9OLDzcbreaVN9lU8nZjOor7ojPrVcf9fknGvo5N8464tn9eVgVzsgq4uNSdxCsb5/ri0jZswZN6PSfmWOD5MhAYYqaI8rnIAzIHGt30= generated-by-azure",
         "metadata": {
           "description": "Configure all linux machines with the SSH RSA public key string. Your key should include three parts, for example 'ssh-rsa AAAAB...snip...UcyupgH azureuser@linuxvm'"
         }
