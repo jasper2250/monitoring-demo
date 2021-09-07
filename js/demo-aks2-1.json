@@ -83,6 +83,9 @@
       }
     },
     "functions": [],
+    "variables": {
+        "managedIdentityId": "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', parameters('userAssignedIdentities_demo_aks2_agentpool_externalid'))]"
+    },
     "resources": [
       {
         "type": "Microsoft.ContainerService/managedClusters",
@@ -92,7 +95,7 @@
         "identity": {
           "type": "UserAssigned"
           "userAssignedIdentities": {
-            "[variables('userAssignedIdentities_demo_aks2_agentpool_externalid')]": {}
+            "[variables('managedIdentityId')]": {}
           }
         },
         "properties": {
