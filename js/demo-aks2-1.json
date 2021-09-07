@@ -93,7 +93,7 @@
         "name": "[parameters('clusterName')]",
         "location": "[parameters('location')]",
         "identity": {
-          "type": "UserAssigned"
+          "type": "UserAssigned",
           "userAssignedIdentities": {
             "[variables('managedIdentityId')]": {}
           }
