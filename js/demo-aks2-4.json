@@ -84,7 +84,7 @@
     },
     "functions": [],
     "variables": {
-        "managedIdentityId": "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', parameters('userAssignedIdentities_demo_aks2_agentpool_externalid'))]"
+        "managedIdentityId": "[resourceId('6c7300fe-0701-437d-b954-6dcbcb876f5f', 'demo', 'Microsoft.ManagedIdentity/userAssignedIdentities', 'demo-uami')]"
     },
     "resources": [
       {
